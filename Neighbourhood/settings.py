@@ -110,6 +110,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Africa/Nairobi'
 
+
 USE_I18N = True
 
 USE_L10N = True
