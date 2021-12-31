@@ -51,3 +51,16 @@ class Neighbourhood(models.Model):
     @classmethod()
     def update_occupants(cls, occupants_count):
         cls.objects.filter(occupants_count=occupants_count).update()
+
+
+class User(model.Models):
+    name = models.CharField(max_length=20)
+    email = models.EmailField(max_length=30)
+    username = models.CharField(max_length=20)
+    password = models.CharField(max_length=20)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    hood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
