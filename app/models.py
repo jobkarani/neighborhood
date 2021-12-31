@@ -64,3 +64,34 @@ class User(model.Models):
 
     def __str__(self):
         return self.name
+
+
+class Business(models.Model):
+    name = models.CharField(max_length=20)
+    email = model.EmailField(max_length=30)
+    about = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    hood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def create_business(self):
+        self.save()
+
+    def update_business(self):
+        self.update()
+
+    def delete_business(self):
+        self.delete()
+
+    @classmethod
+    def search_by_name(cls, search_term):
+        business = cls.objects.filter(name__icontains=search_term)
+        return business
+
+    @classmethod
+    def find_business(cls, id):
+        business = cls.objects.get(id=id)
+        return business
+
+    def __str__(self):
+        return self.name
