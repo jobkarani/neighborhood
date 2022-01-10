@@ -27,3 +27,9 @@ class NeighbourhoodForm(forms.ModelForm):
         model = Neighbourhood
         fields = ['photo', 'name', 'about',
                   'location', 'cop_dail', 'health_dail']
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ('user', 'location')
