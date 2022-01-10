@@ -36,3 +36,20 @@ def update_profile(request, id):
             return redirect('profile')
 
     return render(request, 'all-temps/update_prof.html', {"form": form}, ctx)
+
+
+def create_business(request):
+    current_user = request.user
+    if request.method == "POST":
+
+        form = BusinessForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            business = form.save(commit=False)
+            business.user = current_user
+            business.hood = hood
+            business.save()
+        return HttpResponseRedirect('/businesses')
+    else:
+        form = BusinessForm()
+    return render(request, 'alltemps/create_business.html', {'form': form, 'profile': profile})
