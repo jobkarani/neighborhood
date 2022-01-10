@@ -50,7 +50,30 @@ def create_business(request):
             business.user = current_user
             business.hood = hood
             business.save()
-        return HttpResponseRedirect('')
+        return HttpResponseRedirect('/busineses')
     else:
         form = BusinessForm()
     return render(request, 'all-temps/create-business.html', {'form': form, 'profile': profile})
+
+
+@login_required(login_url="/accounts/login/")
+def busineses(request):
+    current_user = request.user
+    busineses = Business.objects.all().order_by('-id')
+
+    profile = Profile.objects.filter(user_id=current_user.id).first()
+
+    if profile is None:
+        profile = Profile.objects.filter(
+            user_id=current_user.id).first()
+
+        locations = Location.objects.all()
+        hood = Neighbourhood.objects.all()
+
+        busineses = Business.objects.all().order_by('-name')
+
+        return render(request, "all-temps/profile.html", {"danger": "Update Profile", "locations": locations, "hood": hood, "busineses": busineses})
+    else:
+        neighborhood = profile.neighborhood
+        busineses = Business.objects.all().order_by('-id')
+        return render(request, "all-temps/business.html", {"busineses": busineses})
