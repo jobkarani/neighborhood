@@ -82,7 +82,7 @@ def create_business(request):
 @login_required(login_url="/accounts/login/")
 def busineses(request):
     current_user = request.user
-    busineses = Business.objects.all().order_by('-name')
+    busineses = Business.objects.all().order_by('-id')
 
     profile = Profile.objects.filter(user_id=current_user.id).first()
 
@@ -93,7 +93,7 @@ def busineses(request):
         locations = Location.objects.all()
         hood = Neighbourhood.objects.all()
 
-        busineses = Business.objects.all().order_by('-name')
+        busineses = Business.objects.all().order_by('-id')
 
         return render(request, "all-temps/profile.html", {"danger": "Update Profile", "locations": locations, "hood": hood, "busineses": busineses})
     else:
@@ -111,7 +111,7 @@ def create_neighbourhood(request):
             hood = hood_form.save(commit=False)
             hood.user = current_user
             hood.save()
-        return HttpResponseRedirect('/Neighbourhood')
+        return HttpResponseRedirect('/neighbourhood')
     else:
         hood_form = NeighbourhoodForm()
     context = {'hood_form': hood_form}

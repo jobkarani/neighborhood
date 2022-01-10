@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from decouple import config, Csv
+import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +33,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+cloudinary.config(
+    cloud_name="dwrxuibpi",
+    api_key="226928141486514",
+    api_secret="bakCtUGpYbgoF9HFd3rmpUd6EHI"
+)
 # Application definition
 
 INSTALLED_APPS = [
