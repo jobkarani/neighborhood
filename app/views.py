@@ -128,3 +128,43 @@ def leave_hood(request, id):
     request.user.profile.hood = None
     request.user.profile.save()
     return redirect('neighbourhood')
+
+
+@login_required(login_url="/accounts/login/")
+def create_post(request):
+    current_user = request.user.profile
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.save()
+
+        return HttpResponseRedirect('/post')
+    else:
+        form = PostForm()
+    return render(request, "all-temps/create_post.html", {'form': form})
+
+
+login_required(login_url="/accounts/login/")
+
+
+def post(request):
+    current_user = request.user
+    profile = Profile.objects.filter(user_id=current_user.id).first()
+    post = Post.objects.all().order_by('name')
+    if profile is None:
+        profile = Profile.objects.filter(
+            user_id=current_user.id).first()
+        post = Post.objects.all().order_by('name')
+
+        location = Location.objects.all()
+        hood = Neighbourhood.objects.all()
+
+        busineses = Business.objects.filter(user_id=current_user.id)
+
+        return render(request, "all-temps/profile.html", {"danger": "Update Profile ", "location": location, "hood": hood,  "busineses": busineses, "post": post})
+    else:
+        hood = profile.hood
+        post = Post.objects.all().order_by('name')
+        return render(request, "all-temps/post.html", {"post": post})

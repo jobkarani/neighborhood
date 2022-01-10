@@ -117,8 +117,8 @@ class Business(models.Model):
 
 class Post(models.Model):
     name = models.CharField(max_length=50)
-    description = models.TextField(max_length=200, blank=True, null=True)
-    image = CloudinaryField('image')
+    about = models.TextField(max_length=200, blank=True, null=True)
+    photo = CloudinaryField('image')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
