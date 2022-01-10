@@ -1,0 +1,41 @@
+{% extends "all-temps/base.html" %}
+
+{% block content %}
+<style>
+
+</style>
+<section class="blog-section" id="">
+    <div class="container mt-5">
+        <h2 class="text-center headings">Busineses Within Your Neighbourhood: <br>{{hood.name}}
+        </h2>
+        <div class="row">
+
+            {% for bness in busineses %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-capitalize">{{ bness.name }}</h5>
+                        <p>{{ bness.about }}</p>
+                        <p>{{ bness.hood }}</p>
+                        <p>{{ bness.location }}</p>
+                        <a href="malto:{{ bness.email }}" class="card-link">Email: <span
+                                class="text-bold text-primary">{{
+                                bness.email }}</span> </a>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            {% empty %}
+            <div class="col-md-12">
+                <div class="card mb-4 post-card">
+                    <div class="card-body text-center">
+                        <h6 class="fade-item mb-2 text-danger">No busineses found within your Neighbourhood!!</h6>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+</section>
+{% endblock %}

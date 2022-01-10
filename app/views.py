@@ -74,6 +74,6 @@ def busineses(request):
 
         return render(request, "all-temps/profile.html", {"danger": "Update Profile", "locations": locations, "hood": hood, "busineses": busineses})
     else:
-        neighborhood = profile.neighborhood
+        hood = profile.hood
         busineses = Business.objects.all().order_by('-id')
-        return render(request, "all-temps/business.html", {"busineses": busineses})
+        return render(request, "all-temps/busineses.html", {"busineses": busineses})
