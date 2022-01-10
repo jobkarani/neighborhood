@@ -52,6 +52,13 @@ def update_profile(request, id):
     return render(request, 'all-temps/update_prof.html', {"form": form}, ctx)
 
 
+@login_required(login_url="/accounts/login/")
+def profiles(request):
+    current_user = request.user
+    accounts = Profile.objects.all().order_by('-name')
+    return render(request, 'all-temps/profiles.html', {'accounts': accounts, 'current_user': current_user})
+
+
 @login_required(login_url='/accounts/login/')
 def create_business(request):
     current_user = request.user
@@ -73,7 +80,7 @@ def create_business(request):
 @login_required(login_url="/accounts/login/")
 def busineses(request):
     current_user = request.user
-    busineses = Business.objects.all().order_by('-id')
+    busineses = Business.objects.all().order_by('-name')
 
     profile = Profile.objects.filter(user_id=current_user.id).first()
 
@@ -112,7 +119,7 @@ def create_neighbourhood(request):
 @login_required(login_url="/accounts/login/")
 def neighbourhood(request):
     current_user = request.user
-    hood = Neighbourhood.objects.all().order_by('-id')
+    hood = Neighbourhood.objects.all().order_by('-name')
     return render(request, 'all-temps/neighbourhood.html', {'hood': hood, 'current_user': current_user})
 
 
@@ -166,11 +173,11 @@ login_required(login_url="/accounts/login/")
 def post(request):
     current_user = request.user
     profile = Profile.objects.filter(user_id=current_user.id).first()
-    post = Post.objects.all().order_by('name')
+    post = Post.objects.all().order_by('-name')
     if profile is None:
         profile = Profile.objects.filter(
             user_id=current_user.id).first()
-        post = Post.objects.all().order_by('name')
+        post = Post.objects.all().order_by('-name')
 
         location = Location.objects.all()
         hood = Neighbourhood.objects.all()
@@ -180,5 +187,5 @@ def post(request):
         return render(request, "all-temps/profile.html", {"danger": "Update Profile ", "location": location, "hood": hood,  "busineses": busineses, "post": post})
     else:
         hood = profile.hood
-        post = Post.objects.all().order_by('name')
+        post = Post.objects.all().order_by('-name')
         return render(request, "all-temps/post.html", {"post": post})
