@@ -87,6 +87,7 @@ class Business(models.Model):
     name = models.CharField(max_length=20)
     email = models.EmailField(max_length=30)
     about = models.TextField(blank=True, null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     hood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
