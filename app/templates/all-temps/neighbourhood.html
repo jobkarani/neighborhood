@@ -1,0 +1,35 @@
+{%extends 'all-temps/base.html'%}
+
+{% block content %}
+<br><br><br><br>
+{{block.super}}
+
+<div class="container">
+    <div class="card">
+        <a href="{% url 'create_neighbourhood' %}" class="btn btn-outline-warning bg-success">Add Neighbourhood</a>
+    </div>
+    <div class="row">
+        {% for hood in neighbourhood %}
+        <div class="class-md-6">
+            <a href="{% url 'single_hood' hood.name %}" class="btn btn-outline-warning bg-success"><img
+                    src="{{hood.photo.url}}" alt=""></a>
+
+            <h2>{{hood.name}} || {{hood.location}}</h2>
+            <p>{{hood.occupants_count}} Occupants {{hood.occupants_count|pluralize}}</p>
+            <p>{{hood.about}}</p>
+
+            {% if request.user.profile.neighborhood == hood %}
+            <a href="{% url 'leave_hood' hood.id %}" class="btn btn-outline-danger btn-sm">Leave at will</a>
+
+            <a href="{%url 'single_hood' hood.name %}" class="btn btn-outline-success btn-sm"
+                style="float: right">Explore {{hood.name}}
+            </a>
+            {% elif not request.user.profile.neighborhood %}
+            <a href="{% url 'join_hood' hood.id %}" class="btn btn-info btn-sm">Join Hood</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

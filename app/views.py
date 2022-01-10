@@ -88,8 +88,43 @@ def create_neighbourhood(request):
             hood = hood_form.save(commit=False)
             hood.user = current_user
             hood.save()
-        return HttpResponseRedirect('')
+        return HttpResponseRedirect('/Neighbourhood')
     else:
         hood_form = NeighbourhoodForm()
     context = {'hood_form': hood_form}
     return render(request, 'all-temps/create_hood.html', context)
+
+
+@login_required(login_url="/accounts/login/")
+def neighbourhood(request):
+    current_user = request.user
+    hood = Neighbourhood.objects.all().order_by('-id')
+    return render(request, 'all-temps/neighbourhood.html', {'hood': hood, 'current_user': current_user})
+
+
+@login_required(login_url='/accounts/login/')
+def single_hood(request, name):
+    current_user = request.user
+    hood = Neighourhood.objects.get(name=name)
+    profiles = Profile.objects.filter(neighbourhood=hood)
+    busineses = Business.objects.filter(neighbourhood=hood)
+    posts = Post.objects.filter(neighbourhood=hood)
+    request.user.profile.hood = hood
+    request.user.profile.save()
+
+    return render(request, 'single_hood.html', {'hood': hood, 'busineses': busineses, 'posts': posts, 'current_user': current_user, 'profiles': profiles})
+
+
+def join_hood(request, id):
+    hood = get_object_or_404(Neighbourhood, id=id)
+
+    request.user.profile.hood = hood
+    request.user.profile.save()
+    return redirect('neighbourhood')
+
+
+def leave_hood(request, id):
+    hood = get_object_or_404(Neighbourhood, id=id)
+    request.user.profile.hood = None
+    request.user.profile.save()
+    return redirect('neighbourhood')

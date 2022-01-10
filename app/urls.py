@@ -10,7 +10,10 @@ urlpatterns = [
     path('busineses/', views.busineses, name='busineses'),
     path('create_neighbourhood', views.create_neighbourhood,
          name='create_neighbourhood'),
-    # path('busineses/', views.busineses, name='busineses'),
+    path('neighbourhood/', views.neighbourhood, name='neighbourhood'),
+    path('join_hood/<int:id>', views.join_hood, name='join_hood'),
+    path('leave_hood/<int:id>', views.leave_hood, name='leave_hood'),
+
     # path('busineses/', views.busineses, name='busineses'),
 
 ]
