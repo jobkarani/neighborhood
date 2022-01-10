@@ -14,6 +14,20 @@ def index(request):
     return render(request, 'all-temps/index.html')
 
 
+@login_required(login_url="/accounts/login/")
+def search(request):
+    if 'search_term' in request.GET and request.GET["search_term"]:
+        search_term = request.GET.get("search_term")
+        busineses_searched = Business.objects.filter(
+            name__icontains=search_term)
+        message = f"Search For: {search_term}"
+
+        return render(request, "all-temps/search.html", {"message": message, "busineses": busineses_searched})
+    else:
+        message = "You haven't searched for any term"
+        return render(request, "search.html", {"message": message})
+
+
 def profile(request):
     current_user = request.user
     profile = Profile.objects.filter(user_id=current_user.id).first()
