@@ -51,7 +51,7 @@ def update_profile(request, id):
             profile.save()
             return redirect('profile')
 
-    return render(request, 'all-temps/update_prof.html', {"form": form}, ctx)
+    return render(request, 'all-temps/update_prof.html', {"form": form})
 
 
 @login_required(login_url="/accounts/login/")
@@ -76,7 +76,7 @@ def create_business(request):
         return HttpResponseRedirect('/busineses')
     else:
         form = BusinessForm()
-    return render(request, 'all-temps/create-business.html', {'form': form, 'profile': profile})
+    return render(request, 'all-temps/create_business.html', {'form': form, 'profile': profile})
 
 
 @login_required(login_url="/accounts/login/")
