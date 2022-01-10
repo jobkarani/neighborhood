@@ -1,6 +1,6 @@
 {% extends "all-temps/base.html" %}
 {% load bootstrap5 %}
-{% block content %}\
+{% block content %}
 
 <br><br><br><br><br>
 
@@ -9,6 +9,11 @@
     .card {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         text-align: center;
+        margin-top: 5%;
+    }
+
+    .card:hover {
+        filter: drop-shadow(2px 4px 8px rgb(207, 113, 6));
     }
 
     .title {
@@ -30,6 +35,7 @@
             <div class="card">
                 <img src="{{ posts.photo.url }}" alt="post" style="width:100%,">
                 <h4>{{posts.name}}</h4>
+                <p>{{posts.about}}</p>
                 <p>{{posts.hood}}</p>
                 <p>Created on :<strong>{{ posts.date_created|date }}</strong> by <strong>{{posts.user}}</strong></p>
 
@@ -48,7 +54,11 @@
 
     </div>
 
-
+    <div class="text-center mb-3" style="margin-top: 5%;">
+        <a href="{%url 'create_post'  %}" class="btn btn-outline-warning bg-danger text-dark rounded-pill"><span
+                style="font-size: x-large;">Create a Post</span>
+        </a>
+    </div>
 </div>
 
 {%endblock%}
