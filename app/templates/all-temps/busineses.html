@@ -3,7 +3,15 @@
 {% block content %}
 <br><br><br><br><br>
 <style>
+    .card {
+        background: linear-gradient(to top, #f0ea9c, #f05c48);
+        filter: drop-shadow(2px 4px 8px #585858);
+        margin-top: 5%;
+    }
 
+    .card:hover {
+        filter: drop-shadow(2px 4px 8px #fff);
+    }
 </style>
 <section class="blog-section" id="">
     <div class="container mt-5">
@@ -37,6 +45,12 @@
                 </div>
                 {% endfor %}
 
+                <div class="text-center mb-3" style="margin-top: 5%;">
+                    <a href="{%url 'create_business'  %}"
+                        class="btn btn-outline-warning bg-danger text-dark rounded-pill"><span
+                            style="font-size: x-large;">Add a Business</span>
+                    </a>
+                </div>
             </div>
         </div>
 </section>

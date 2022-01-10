@@ -3,16 +3,34 @@
 {% block content %}
 <br><br><br><br>
 <!-- content -->
+<style>
+    form {
+        border: 2px solid black;
+        border-radius: 10%;
+        padding: 5%;
+        background: linear-gradient(to top, #f0ea9c, #f05c48);
+        filter: drop-shadow(2px 4px 8px #585858);
+    }
+
+    form:hover {
+        filter: drop-shadow(2px 4px 8px #fff);
+    }
+
+    input {
+        font-size: larger;
+    }
+</style>
 <div class="container">
     <div class=" mt-4">
         <div class="text-center">
-            <h4>Create Business</h4>
+            <h4>Create A Business</h4>
         </div>
         <form action="{% url 'create_business' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {% bootstrap_form form %}
             <div class="form-group">
-                <input type="submit" class="btn btn-outline-info btn-sm" value="create business" />
+                <input type="submit" class="btn btn-outline-success text-dark btn-sm bg-danger"
+                    value="Create Business" />
             </div>
         </form>
     </div>
