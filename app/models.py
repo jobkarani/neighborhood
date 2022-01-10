@@ -115,36 +115,6 @@ class Business(models.Model):
         return self.name
 
 
-# class Contact(models.Model):
-#     name = models. CharField(max_length=20)
-#     email = models.EmailField(max_length=30, blank=True, null=True)
-#     phone_number = models.CharField(max_length=30)
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     date_created = models.DateTimeField(auto_now_add=True)
-
-#     def create_contact(self):
-#         self.save()
-
-#     def update_contact(self):
-#         self.update()
-
-#     def delete_contact(self):
-#         self.delete()
-
-#     @classmethod
-#     def search_by_name(cls, search_term):
-#         contact = cls.objects.filter(name__icontains=search_term)
-#         return contact
-
-#     @classmethod
-#     def find_contact(cls, id):
-#         contact = cls.objects.get(id=id)
-#         return contact
-
-#     def __str__(self):
-#         return self.name
-
-
 class Post(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=200, blank=True, null=True)

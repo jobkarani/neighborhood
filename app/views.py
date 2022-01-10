@@ -38,6 +38,7 @@ def update_profile(request, id):
     return render(request, 'all-temps/update_prof.html', {"form": form}, ctx)
 
 
+@login_required(login_url='/accounts/login/')
 def create_business(request):
     current_user = request.user
     if request.method == "POST":
@@ -49,7 +50,7 @@ def create_business(request):
             business.user = current_user
             business.hood = hood
             business.save()
-        return HttpResponseRedirect('/businesses')
+        return HttpResponseRedirect('')
     else:
         form = BusinessForm()
-    return render(request, 'alltemps/create_business.html', {'form': form, 'profile': profile})
+    return render(request, 'all-temps/create-business.html', {'form': form, 'profile': profile})
