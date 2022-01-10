@@ -1,0 +1,55 @@
+{% extends "all-temps/base.html" %}
+{% block content %}
+<br><br><br><br><br>
+<style>
+    .dear {
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+    .bite {
+        color: black;
+    }
+</style>
+
+<div class="container dear">
+    <h2 class="text-center mb-5">Your search results</h2>
+
+    <div class="row bite">
+
+
+        {% for bness in busineses %}
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="{{bness.photo.url}}" alt=""
+                                style="border-radius: 10%; width: 100%; height: auto;">
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="card-title text-capitalize">{{ bness.name }}</h5>
+                            <p>{{ bness.about }}</p>
+                            <p>{{ bness.hood }}</p>
+                            <p>{{ bness.location }}</p>
+                            <a href="malto:{{ bness.email }}" class="card-link">Email: <span
+                                    class="text-bold text-primary">{{ bness.email }}</span> </a>
+                        </div>
+
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+        <div class="col-md-12">
+            <div class="card mb-4 post-card">
+                <div class="card-body text-center">
+                    <h6 class="fade-item mb-2 text-danger">No businesses found within your Hood!!</h6>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
