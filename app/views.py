@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .models import *
+from .forms import *
 
 # Create your views here.
 
@@ -19,4 +20,19 @@ def profile(request):
     hood = Neighbourhood.objects.all()
     businesses = Business.objects.filter(user_id=current_user.id)
     posts = Post.objects.filter(user_id=current_user.id)
-    return render(request, "profile.html", {"profile": profile, 'hood': hood, 'businesses': businesses, "posts": posts, })
+    return render(request, "all-temps/profile.html", {"profile": profile, 'hood': hood, 'businesses': businesses, "posts": posts, })
+
+
+def update_profile(request, id):
+    user = User.objects.get(id=id)
+    profile = Profile.objects.get(user_id=user)
+    form = UpdateProfileForm(instance=profile)
+    if request.method == "POST":
+        form = UpdateProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+
+            profile = form.save(commit=False)
+            profile.save()
+            return redirect('profile')
+
+    return render(request, 'all-temps/update_prof.html', {"form": form}, ctx)
