@@ -8,7 +8,7 @@ from .forms import *
 # Create your views here.
 
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def index(request):
     hood = Neighbourhood.objects.all().order_by('-name')
     return render(request, 'all-temps/index.html')
@@ -28,6 +28,7 @@ def search(request):
         return render(request, "search.html", {"message": message})
 
 
+@login_required(login_url="/accounts/login/")
 def profile(request):
     current_user = request.user
     profile = Profile.objects.filter(user_id=current_user.id).first()
@@ -37,6 +38,7 @@ def profile(request):
     return render(request, "all-temps/profile.html", {"profile": profile, 'hood': hood, 'businesses': businesses, "posts": posts, })
 
 
+@login_required(login_url="/accounts/login/")
 def update_profile(request, id):
     user = User.objects.get(id=id)
     profile = Profile.objects.get(user_id=user)
@@ -55,7 +57,7 @@ def update_profile(request, id):
 @login_required(login_url="/accounts/login/")
 def profiles(request):
     current_user = request.user
-    accounts = Profile.objects.all().order_by('-name')
+    accounts = Profile.objects.all().order_by('-user')
     return render(request, 'all-temps/profiles.html', {'accounts': accounts, 'current_user': current_user})
 
 
