@@ -77,3 +77,19 @@ def busineses(request):
         hood = profile.hood
         busineses = Business.objects.all().order_by('-id')
         return render(request, "all-temps/busineses.html", {"busineses": busineses})
+
+
+@login_required(login_url="/accounts/login/")
+def create_neighbourhood(request):
+    current_user = request.user
+    if request.method == 'POST':
+        hood_form = NeighbourhoodForm(request.POST, request.FILES)
+        if hood_form.is_valid():
+            hood = hood_form.save(commit=False)
+            hood.user = current_user
+            hood.save()
+        return HttpResponseRedirect('')
+    else:
+        hood_form = NeighbourhoodForm()
+    context = {'hood_form': hood_form}
+    return render(request, 'all-temps/create_hood.html', context)
