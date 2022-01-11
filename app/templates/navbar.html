@@ -1,59 +1,58 @@
 <style>
-    .ayub {
-        margin-left: 15%;
-        width: 50%;
-    }
-
     .pad a {
         margin-left: 10%;
         margin-right: 10%;
+
     }
 
-    .sign {
-        padding-left: 5%;
+    .pad {
+        width: 60%;
+        margin-left: 5%;
+    }
+
+
+    .log {
+        margin-right: 10%;
     }
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light  fixed-top navi"
     style=" background: linear-gradient(to top , #f0ea9c, #f05c48);border-bottom : inset #161516;">
-    <nav class="navbar navbar-expand-lg navbar-light bg-inherit ayub">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav pad">
-                    <a class="nav-link active" aria-current="page" href="/" style="font-family: Open Sans Condensed, sans-serif;
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav pad">
+            <a class="nav-link active" aria-current="page" href="/" style="font-family: Open Sans Condensed, sans-serif;
           font-weight: 900;
           font-style: oblique;
           font-size: x-large;
           padding-top: 1%;">Home</span></a>
-                    <a class="nav-link active" style="font-family: Open Sans Condensed, sans-serif;
+            <a class="nav-link active" style="font-family: Open Sans Condensed, sans-serif;
                     font-weight: 900;
                     font-style: oblique;
                     font-size: x-large;
                     padding-top: 1%;" href="/busineses/">Businesses</a>
-                    <a class="nav-link active" style="font-family: Open Sans Condensed, sans-serif;
+            <a class="nav-link active" style="font-family: Open Sans Condensed, sans-serif;
                     font-weight: 900;
                     font-style: oblique;
                     font-size: x-large;
                     padding-top: 1%;" href="/neighbourhood/">Hoods</a>
-                    <a class="nav-link active" style="font-family: Open Sans Condensed, sans-serif;
+            <a class="nav-link active" style="font-family: Open Sans Condensed, sans-serif;
                     font-weight: 900;
                     font-style: oblique;
                     font-size: x-large;
                     padding-top: 1%;" href="/profiles/">Profiles</a>
-                    <a class="nav-link active" style="font-family: Open Sans Condensed, sans-serif;
+            <a class="nav-link active" style="font-family: Open Sans Condensed, sans-serif;
                     font-weight: 900;
                     font-style: oblique;
                     font-size: x-large;
                     padding-top: 1%;" href="/post/">Posts</a>
-                </div>
-            </div>
         </div>
-    </nav>
+    </div>
+
 
     <!-- Adding a search form  -->
 
     <!-- search form end -->
-    <a class="nav-link text-dark prof" href="/profile">
+    <a class="nav-link active text-dark prof" href="/profile">
 
         <div class="user">
             {% if user.is_authenticated %}
@@ -65,6 +64,6 @@
             {% endif %}
         </div>
         <div class="log">
-            <a class="nav-item text-dark" style="font-size: larger;" href="/logout/">Logout</a>
+            <a class="nav-item text-dark" style="font-size: larger; list-style-type: none;" href="/logout/">Logout</a>
         </div>
 </nav>
