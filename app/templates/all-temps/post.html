@@ -6,13 +6,13 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-    .card {
+    .car {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         text-align: center;
         margin-top: 5%;
     }
 
-    .card:hover {
+    .car:hover {
         filter: drop-shadow(2px 4px 8px rgb(207, 113, 6));
     }
 
@@ -32,7 +32,7 @@
         {% for posts in post %}
         <div class="col-md-4">
 
-            <div class="card">
+            <div class="card car">
                 <img src="{{ posts.photo.url }}" alt="post" style="width:100%,">
                 <h4>{{posts.name}}</h4>
                 <p>{{posts.about}}</p>

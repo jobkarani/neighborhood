@@ -53,10 +53,18 @@
     <!-- Adding a search form  -->
 
     <!-- search form end -->
-    <div class="sign">
-        <p style="font-size:larger;">Don't have an account? <a href="/accounts/register/"
-                style="color: #D8E9A8;font-size:larger;">REGISTER</a>&nbsp; ||&nbsp; <a href="/accounts/login/"
-                style="color: #D8E9A8; font-size:larger;">LOGIN</a></p>
-    </div>
+    <a class="nav-link text-dark prof" href="/profile">
 
+        <div class="user">
+            {% if user.is_authenticated %}
+            <img src="{{user.profile.photo.url}}" alt="" style="border-radius: 50%; width: 10%; height: 10%;"> &nbsp;
+            <span class="text-dark">{{user.username|title}}</span>
+            {%else%}
+            <img src="hhttps://cdn.pixabay.com/photo/2012/04/01/18/02/golf-23794__340.png" class="card-img-top"
+                alt="My profile picture" style="border-radius: 50%; width: 10%; height: 10%;">
+            {% endif %}
+        </div>
+        <div class="log">
+            <a class="nav-item text-dark" style="font-size: larger;" href="/logout/">Logout</a>
+        </div>
 </nav>

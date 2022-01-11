@@ -8,12 +8,12 @@
         margin-bottom: 3%;
     }
 
-    .card {
+    .cor {
         background: linear-gradient(to top, #f0ea9c, #f05c48);
         filter: drop-shadow(2px 4px 8px #585858);
     }
 
-    .card:hover {
+    .cor:hover {
         filter: drop-shadow(2px 4px 8px #fff);
     }
 </style>
@@ -23,7 +23,7 @@
 
     <div class="row">
         {% for acc in accounts %}
-        <div class="card col-md-3 m-3 text-left">
+        <div class="card cor col-md-3 m-3 text-left">
 
             {% if acc.photo %}
             <img src="{{acc.photo.url}}" alt="" style="border-radius: 50%; width: 50%; height: auto;">

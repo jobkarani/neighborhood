@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -18,11 +18,11 @@ def index(request):
 def search(request):
     if 'search_term' in request.GET and request.GET["search_term"]:
         search_term = request.GET.get("search_term")
-        busineses_searched = Business.objects.filter(
+        hoods_searched = Neighbourhood.objects.filter(
             name__icontains=search_term)
         message = f"Search For: {search_term}"
 
-        return render(request, "all-temps/search.html", {"message": message, "busineses": busineses_searched})
+        return render(request, "all-temps/search.html", {"message": message, "neighbourhood": hoods_searched})
     else:
         message = "You haven't searched for any term"
         return render(request, "search.html", {"message": message})
@@ -71,7 +71,7 @@ def create_business(request):
         if form.is_valid():
             business = form.save(commit=False)
             business.user = current_user
-            business.hood = hood
+            business.name = request.POST['name']
             business.save()
         return HttpResponseRedirect('/busineses')
     else:
@@ -121,21 +121,21 @@ def create_neighbourhood(request):
 @login_required(login_url="/accounts/login/")
 def neighbourhood(request):
     current_user = request.user
-    hood = Neighbourhood.objects.all().order_by('-name')
+    hood = Neighbourhood.objects.all().order_by('-id')
     return render(request, 'all-temps/neighbourhood.html', {'hood': hood, 'current_user': current_user})
 
 
 @login_required(login_url='/accounts/login/')
 def single_hood(request, name):
     current_user = request.user
-    hood = Neighourhood.objects.get(name=name)
-    profiles = Profile.objects.filter(neighbourhood=hood)
-    busineses = Business.objects.filter(neighbourhood=hood)
-    posts = Post.objects.filter(neighbourhood=hood)
+    hood = Neighbourhood.objects.get(name=name)
+    profiles = Profile.objects.filter(hood=hood)
+    busineses = Business.objects.filter(hood=hood)
+    posts = Post.objects.filter(name=name)
     request.user.profile.hood = hood
     request.user.profile.save()
 
-    return render(request, 'single_hood.html', {'hood': hood, 'busineses': busineses, 'posts': posts, 'current_user': current_user, 'profiles': profiles})
+    return render(request, 'all-temps/single_hood.html', {'hood': hood, 'busineses': busineses, 'posts': posts, 'current_user': current_user, 'profiles': profiles})
 
 
 def join_hood(request, id):
@@ -155,11 +155,12 @@ def leave_hood(request, id):
 
 @login_required(login_url="/accounts/login/")
 def create_post(request):
-    current_user = request.user.profile
+    current_user = request.user.id
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
+            location = Profile.objects.get(user_id=current_user)
             post.user = current_user
             post.save()
 

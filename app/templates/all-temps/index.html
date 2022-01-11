@@ -3,15 +3,66 @@
 {% block content %}
 <br><br><br><br> <br><br>
 {{block.super}}
+<style>
+    body {
+        background-image: url('https://cdn.pixabay.com/photo/2020/03/18/06/06/street-4942809__340.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
-<h1>Welcome to neighbourhood</h1>
+    .mise {
+        margin-left: 10%;
+        margin-right: 30%;
+        margin-bottom: 30%;
+        margin-top: 10%;
+        background: inherit;
+        width: 90%;
+    }
 
-<form class="me-auto search-form " target="_self" action="{% url 'search' %}">
-    <div class="d-flex align-items-center"><label class="form-label d-flex mb-0" for="search-field">
-        </label><input class="form-control search-field" type="search" id="search-field" name="search_term">
-        <i class="fa fa-search "></i>
+    .mise p {
+        color: chartreuse;
+        font-size: x-large;
+    }
+
+    .mise a {
+        margin-left: 40%;
+        font-size: x-large;
+        padding: 1%;
+        border-radius: 20%;
+    }
+
+    .h1 {
+        color: chartreuse;
+        text-align: center;
+    }
+
+    .form {
+        width: 50%;
+        margin-left: 25%;
+        margin-top: 5%;
+    }
+</style>
+
+<div class="container home">
+    <h1 class="h1">Welcome to Neighbourhood</h1>
+
+    <form class="me-auto form search-form " target="_self" action="{% url 'search' %}">
+        <div class="d-flex align-items-center"><label class="form-label d-flex mb-0" for="search-field">
+            </label><input class="form-control search-field" placeholder="Search Neighbourhood...." type="search"
+                id="search-field" name="search_term">
+            <i class="fa fa-search " style="font-size: x-large; color: white; margin-left:2%;"></i>
+        </div>
+    </form>
+
+    <div class=" mise">
+        <p>You can do a research on the best neighbourhood to join and get to know whether your business will
+            thrive
+            there. <br> You can also see businesses in that neighbourhood and posts made in the neighbourhood. You
+            can also
+            create your own neighbourhood and posts. <br>
+            Join a Neighbourhood today</p>
+        <a href="{% url 'neighbourhood'  %}" class="btn btn-success btn-sm">Join Hood</a>
     </div>
-</form>
 
-
+</div>
 {% endblock %}
